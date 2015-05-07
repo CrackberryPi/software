@@ -4,15 +4,15 @@
 
 ##Steps
 
-Set up latest Rasbian
-Install basic tools
-Enable RTC
-Program EEPROM
-Entropy generator
-Enable screen
-Set up IR tx/rx
-Set up keyboard
-Enable FM
+* Set up latest Rasbian
+* Install basic tools
+* Enable RTC
+* Program EEPROM
+* Entropy generator
+* Enable screen
+* Set up IR tx/rx
+* Set up keyboard
+* Enable FM
 
 ###Set up Raspbian
 
