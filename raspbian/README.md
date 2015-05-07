@@ -8,7 +8,7 @@
 * Install basic tools
 * Enable RTC
 * Program EEPROM
-* Entropy generator
+* Entropy generator testing
 * Enable screen
 * Set up IR tx/rx
 * Set up keyboard
@@ -42,20 +42,21 @@ gpio readall
 
 ###Enable RTC
 
-add to /etc/modules
+Install battery
+
+Add to /etc/modules
 ```
 i2c-bcm2708
 ```
 
-add to /etc/rc.local
+Add to /etc/rc.local
 ```
 modprobe i2c-dev
 modprobe i2c:mcp7941x
 echo mcp7941x 0x6f > /sys/class/i2c-dev/i2c-1/device/new-device
 ```
 
-reboot
-install battery
+Reboot
 
 ```
 sudo date -s "7 MAY 2015 21:27:00"
