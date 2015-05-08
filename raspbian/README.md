@@ -83,11 +83,29 @@ sudo date -s "7 MAY 2015 21:27:00"
 
 ###Program EEPROM
 
-WIP
+WIP, see [RPi HAT programming](https://github.com/raspberrypi/hats/tree/master/eepromutils)
+
+Add to /boot/config.txt
+```
+dtparam=i2c_arm=on
+dtparam=i2c_vc=on
+```
+
+```
+mkdir eeprom
+cd eeprom
+wget http://github.com/raspberrypi/hats/tree/master/eepromutils/eepdump.c
+wget http://github.com/raspberrypi/hats/tree/master/eepromutils/eepflash.sh
+wget http://github.com/raspberrypi/hats/tree/master/eepromutils/eepmake.c
+wget http://github.com/raspberrypi/hats/tree/master/eepromutils/eeprom_settings.txt
+wget http://github.com/raspberrypi/hats/tree/master/eepromutils/eeptypes.h
+```
 
 ###Entropy generator testing
 
-Open random.py
+WIP
+
+Sudo nano random.py
 ```
 import RPi.GPIO as GPIO
 
@@ -103,9 +121,10 @@ GPIO.setup(random_output, GPIO.IN)
 GPIO.output(random_power, GPIO.HIGH)
 GPIO.output(random_output, GPIO.HIGH)
 
+quasi programming
 for loop
-GPIO.input(random_output)
-
-normalize to make noise white
+	a = GPIO.input(random_output)
+	b = GPIO.input(random_output)
+	if a!=b append a to output.txt
 
 GPIO.cleanup()
