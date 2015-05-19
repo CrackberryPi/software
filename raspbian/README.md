@@ -37,7 +37,6 @@ sudo apt-get install git-core
 git clone git://git.drogon.net/wiringPi
 cd wiringPi
 git pull origin
-cd wiringPi
 ./build
 
 gpio -v
@@ -48,18 +47,9 @@ gpio readall
 
 ```
 sudo apt-get install i2c-tools
-sudo apt-get install python smbus
+sudo apt-get install python-smbus
 sudo adduser pi i2c
 sudo reboot
-```
-
-###Enable RTC
-
-Install battery
-
-Check if RTC shows up at 0x6f using
-```
-i2cdetect -y 1
 ```
 
 Add to /etc/modules
@@ -71,6 +61,19 @@ i2c-dev
 Add to /etc/rc.local
 ```
 modprobe i2c-dev
+```
+
+###Enable RTC
+
+Install battery
+
+Check if RTC shows up at 0x6f using
+```
+i2cdetect -y 1
+```
+
+Add to /etc/rc.local
+```
 modprobe i2c:mcp7941x
 echo mcp7941x 0x6f > /sys/class/i2c-dev/i2c-1/device/new-device
 ```
@@ -128,3 +131,49 @@ for loop
 	if a!=b append a to output.txt
 
 GPIO.cleanup()
+
+###IR tx/rx
+
+```
+sudo apt-get install apache2 php5 mysql-client mysql-server tomcat6 vsftpd
+sudo apt-get install lirc
+
+```
+
+Add to /etc/modules
+```
+lirc_dev
+lirc_rpi gpio_in_pin=23 gpio_out_pin=22
+```
+
+Change /etc/lirc/hardware.conf to match
+```
+########################################################
+# /etc/lirc/hardware.conf
+#
+# Arguments which will be used when launching lircd
+LIRCD_ARGS="--uinput"
+
+# Don't start lircmd even if there seems to be a good config file
+# START_LIRCMD=false
+
+# Don't start irexec, even if a good config file seems to exist.
+# START_IREXEC=false
+
+# Try to load appropriate kernel modules
+LOAD_MODULES=true
+
+# Run "lircd --driver=help" for a list of supported drivers.
+DRIVER="default"
+
+# usually /dev/lirc0 is the correct setting for systems using udev
+DEVICE="/dev/lirc0"
+MODULES="lirc_rpi"
+
+# Default configuration files for your hardware if any
+LIRCD_CONF=""
+LIRCMD_CONF=""
+########################################################
+```
+
+
