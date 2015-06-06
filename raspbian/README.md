@@ -177,3 +177,28 @@ LIRCMD_CONF=""
 ```
 
 
+###TCA8424
+
+import RPi.GPIO as GPIO
+import smbus
+import time
+
+bus = smbus.SMBus(1)
+addr = 0x3B
+
+bus.write_byte_data(addr, 0x01, 0x00)
+
+
+KB_INT = 20
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(KB_INT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+x = bus.read_byte_data(addr,0x30)
+print x
+
+
+GPIO.wait_for_edge(KB_INT, GPIO.FALLING)
+print "ping"
+
+GPIO.cleanup()
+
